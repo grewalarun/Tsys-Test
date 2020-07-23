@@ -75,7 +75,7 @@ clickHandle = () => {
         <ul className="mt-50 slide-up-fade-in styled" id="stockData" data-testid="stock-data" >
 
 {this.state.isData===1?this.state.data.data.map(a=>
- <div key={a.open}><li className="py-10">Open : {
+ <React.Fragment key={a.open}><li className="py-10">Open : {
   a.close}
   </li><li className="py-10">Close: {
   a.open}
@@ -85,18 +85,12 @@ clickHandle = () => {
   </li>
   <li className="py-10">Low: {
   a.open}
-  </li></div>
+  </li></React.Fragment>
   
   
   
-  ):'No Result'}
+  ):<p>No Result Found</p>}
 
-
-{/* 
-          <li className="py-10"></li>
-          <li className="py-10"></li>
-          <li className="py-10"></li>
-          <li className="py-10"></li> */}
         </ul>
       <div className="mt-50 slide-up-fade-in" id="no-result" data-testid="no-result"></div>
       </div>
