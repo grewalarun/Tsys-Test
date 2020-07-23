@@ -9,7 +9,8 @@ export default class StockData extends Component {
     this.state = { 
       data:'', 
       loading:true,
-      input:''
+      input:'',
+      isData:''
      }
 }
 
@@ -21,11 +22,7 @@ inputchangeHandle = (e) => {
 }
 
 clickHandle = () => {
-  alert("sdsdsd")
-}
-
-componentWillUpdate(){
-  axios({
+   axios({
     method: "GET",
     url:
       'https://jsonmock.hackerrank.com/api/stocks?date='+this.state.input,
@@ -34,8 +31,9 @@ componentWillUpdate(){
     .then((response) => {
       //  console.log(response)
       this.setState({
-        data:response,
-        loading:false
+        data:response.data,
+        
+        isData:response.data.data.length
       });
     })
     .catch((error) => {
@@ -43,10 +41,31 @@ componentWillUpdate(){
     });
 }
 
+
+
+
+// componentDidMount(){
+//   axios({
+//     method: "GET",
+//     url:
+//       'https://jsonmock.hackerrank.com/api/stocks'
+
+//   })
+//     .then((response) => {
+//        console.log(response)
+//       this.setState({
+//         data:response,
+//         loading:false
+//       });
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
+
   render() {
 
-      const data1 = this.state.data.data;
-    console.log(data1);
+    
     return (
       <div className="layout-column align-items-center mt-50">
         <section className="layout-row align-items-center justify-content-center">
@@ -55,16 +74,22 @@ componentWillUpdate(){
         </section>
         <ul className="mt-50 slide-up-fade-in styled" id="stockData" data-testid="stock-data" >
 
-{this.state.loading==false?data1.data.map(a=>
- <div><li className="py-10">Open : {
+{this.state.isData===1?this.state.data.data.map(a=>
+ <div key={a.open}><li className="py-10">Open : {
   a.close}
   </li><li className="py-10">Close: {
+  a.open}
+  </li>
+  <li className="py-10">High: {
+  a.open}
+  </li>
+  <li className="py-10">Low: {
   a.open}
   </li></div>
   
   
   
-  ):'Loading'}
+  ):'No Result'}
 
 
 {/* 
